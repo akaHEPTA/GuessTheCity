@@ -4,10 +4,12 @@ public class Question {
             "---------",                                    // 1
             "Guess a letter: ",                             // 2
             "You are guessing: ",                           // 3
-            "You have guessed (%d) wrong letters: ",        // 4
-            "You Win!\nYou have guessed '%s' correctly.",   // 5
-            "You lose!\nThe correct word was '%s'!"         // 6
+            "You have guessed (",                           // 4
+            ") wrong letters: ",                            // 5
+            "You Win!\nYou have guessed '%s' correctly.",   // 6
+            "You lose!\nThe correct word was '%s'!"         // 7
     };
+
     private static final String ERROR_CODE = "[!] Script is not exist";
 
     private Question() {
@@ -21,3 +23,44 @@ public class Question {
     }
 
 }
+
+/*
+ Backup code
+
+    private static final String[] CITIES = {"Chongqing", "Shanghai", "Beijing", "Lagos", "Mumbai", "Dhaka", "Chengdu",
+            "Karachi", "Guangzhou", "Istanbul", "Tokyo", "Tianjin", "Moscow", "Sao Paulo", "Kinshasa", "Delhi",
+            "Baoding", "Lahore", "Wuhan", "Cairo", "Seoul", "Jakarta", "Wenzhou", "Lima", "Mexico City", "London",
+            "Bangkok", "Xian", "Chennai", "Bangalore", "New York", "Ho Chi Minh City", "Hyderabad", "Shenzhen",
+            "Suzhou", "Nanjing", "Dongguan", "Tehran", "Quanzhou", "Shenyang", "Bogota", "Hong Kong", "Baghdad",
+            "Fuzhou", "Changsha", "Hanoi", "Rio de Janeiro", "Qingdao", "Foshan", "Zunyi", "Santiago", "Riyadh",
+            "Ahmedabad", "Singapore", "Shantou", "Ankara", "Yangon", "Saint Petersburg", "Sydney", "Casablanca",
+            "Melbourne", "Abidjan", "Alexandria", "Kolkata", "Surat", "Johannesburg", "Dar es Salaam", "Shijiazhuang",
+            "Harbin", "Giza", "İzmir", "Zhengzhou", "Taipei", "Los Angeles", "Berlin", "Busan", "Madrid",
+            "Buenos Aires", "Toronto", "Chicago", "Osaka", "Paris", "Vancouver", "Montreal", "San Francisco", "Boston",
+            "Seattle", "Washington DC", "Philadelphia", "Portland", "Ottawa", "Miami", "Dallas", "Calgary", "Denver",
+            "Detroit", "Houston", "Edmonton", "Las Vegas", "Atlanta"
+    };
+
+
+    private String myIndexOf(String tempAnswer, char letter) {
+        char[] result = new char[tempAnswer.length()];
+
+        while (tempAnswer.indexOf(letter) == -1) {
+            int index = tempAnswer.indexOf(letter);
+            result[index] = letter;
+            tempAnswer = tempAnswer.substring(index + 1);
+        }
+        return "";
+    }
+
+    private int update(char letter) {
+        int cnt = 0;
+        for (int i = 0; i < answer.length; i++) {
+            if (answer[i] == letter) {
+                guess[i] = letter;
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+*/
