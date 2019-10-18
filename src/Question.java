@@ -1,13 +1,15 @@
 public class Question {
     private static final String[] SCRIPTS = {
             "Here's the Question.",                         // 0
-            "---------",                                    // 1
+            "---------",                                    // 1 - not used
             "Guess a letter: ",                             // 2
             "You are guessing: ",                           // 3
             "You have guessed (",                           // 4
             ") wrong letters: ",                            // 5
-            "You Win!\nYou have guessed '%s' correctly.",   // 6
-            "You lose!\nThe correct word was '%s'!"         // 7
+            "You Win!\nYou have guessed '",                 // 6
+            "' correctly.",                                 // 7
+            "You lose!\nThe correct word was '",            // 8
+            "'!"                                            // 9
     };
 
     private static final String ERROR_CODE = "[!] Script is not exist";
@@ -16,7 +18,7 @@ public class Question {
     }
 
     public static String getScript(int scriptNum){
-        if (scriptNum > 0 && scriptNum <= 6)
+        if (scriptNum >= 0 && scriptNum < SCRIPTS.length)
             return SCRIPTS[scriptNum];
         else
             return ERROR_CODE;

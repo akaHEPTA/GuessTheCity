@@ -22,26 +22,21 @@ public class GameController {
         createObjects();
         readFile();
         generateFields();
+        startGame();
 
-        while(String.valueOf(guess).contains("_")) {
-            if (wrongAnswerCount >= 10)
+        while(true) {
+            if (wrongAnswerCount >= 10) {
+                isLost();
                 break;
+            } else if (!String.valueOf(guess).contains("_")){
+                isWin();
+                break;
+            }
             checkGuess(getChar());
+            handleGuess();
         }
 
-        // 사용자 값 입력받아서 answer 와 비교
-        // 매치 돌려서 존재할 경우 안 할 경우 쪼개기
-
-        // Get Scanner input
-        //System.out.print(Question.getScript(2)); // "Guess a letter: "
-
-        // Check the input value exists in answer
-
-        //System.out.print("\n" + Question.getScript(3)); // "You are guessing: "
-
-        // 2. get scanner input
-        // 3. if it is in answer -> update display and go to 1
-        //    if it is not in answer -> update with the wrong answer list and show how may life left
+        System.out.println("\nDone!");
     }
 
     private void createObjects() {
@@ -59,6 +54,7 @@ public class GameController {
         cities = new String[100];
         int i = 0;
         while(fileScan.hasNextLine()) cities[i++] = fileScan.nextLine();
+        fileScan.close();
     }
 
     private void generateFields(){
@@ -70,16 +66,23 @@ public class GameController {
         wrongAnswerCount = 0;
     }
 
+    private void startGame(){
+        System.out.println(Question.getScript(0));
+        System.out.println(String.valueOf(guess));
+    }
+
     private char getChar() {
-        System.out.print(Question.getScript(2)); // "Guess a letter: "
         char input;
         while (true) {
+            System.out.print(Question.getScript(2)); // "Guess a letter: "
             try {
-                input = myScan.next().charAt(0);
+                String tempLine = myScan.nextLine();
+                if (tempLine.length() > 1) throw new Exception();
+                input = tempLine.charAt(0);
                 break;
             } catch (Exception e) {
-                System.out.println("[!] Invalid Value: ");
                 myScan = new Scanner(System.in);
+                handleGuess();
             }
         }
         return input;
@@ -87,14 +90,16 @@ public class GameController {
 
     private void checkGuess(char input) {
         if (String.valueOf(answer).contains(String.valueOf(input))) {
-            // 포함하고 있는걸 확인했으니 while 로 인덱스 조회하여 guess 업데이트
             for (int i = 0; i < answer.length; i++)
                 if (answer[i] == input)
                     guess[i] = input;
         } else {
-            // 포함하고 있지 않으니 오답 카운트++, 리스트에 추가
             wrongAnswers[wrongAnswerCount++] = input;
         }
+
+    }
+
+    private void handleGuess(){
         System.out.println(Question.getScript(3) + String.valueOf(guess));
         System.out.print(Question.getScript(4) + wrongAnswerCount
                 + Question.getScript(5));
@@ -106,5 +111,14 @@ public class GameController {
         System.out.println(wrongAnswerList);
     }
 
+    private void isLost() {
+        System.out.println(Question.getScript(8) + String.valueOf(answer)
+                + Question.getScript(9)); // "You lose!\nThe correct word was '%s'!"
+    }
+
+    private void isWin() {
+        System.out.println(Question.getScript(6) + String.valueOf(answer)
+                + Question.getScript(7)); // "' correctly."
+    }
 
 }
